@@ -1,5 +1,5 @@
-/* src/index.css - FIXED VERSION */
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap');
+/* src/index.css - SkillSync Quantum Nexus Design System */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -9,31 +9,83 @@
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   body {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Inter', 'DM Sans', sans-serif;
     background-color: #060b18;
     color: #f1f5f9;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   h1, h2, h3, h4, h5, h6 {
     font-weight: 700;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.025em;
   }
 }
 
 @layer components {
 
-  /* Buttons */
+  /* ── Glassmorphism ─────────────────────────────────────────────────── */
+  .glass-card {
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    @apply rounded-2xl;
+  }
+
+  .glass-card:hover {
+    border-color: rgba(99, 102, 241, 0.25);
+    box-shadow: 0 8px 40px rgba(99, 102, 241, 0.08), 0 0 0 1px rgba(99, 102, 241, 0.05);
+  }
+
+  .glass-pill {
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: all 0.3s ease;
+  }
+
+  .glass-pill:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+
+  .glass-navbar {
+    background: rgba(6, 11, 24, 0.75);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .glass-dropdown {
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* ── Buttons ───────────────────────────────────────────────────────── */
   .btn-primary {
     @apply inline-flex items-center gap-2 px-5 py-2.5 text-white font-semibold rounded-xl transition-all duration-200 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed;
-    background-color: #3a5bff;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3), inset 0 1px 1px rgba(255,255,255,0.1);
   }
-  .btn-primary:hover { background-color: #1e38f5; }
+  .btn-primary:hover {
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4), inset 0 1px 1px rgba(255,255,255,0.1);
+    transform: translateY(-1px);
+  }
 
   .btn-secondary {
-    @apply inline-flex items-center gap-2 px-5 py-2.5 text-slate-200 font-semibold rounded-xl border border-white/10 transition-all duration-200 active:scale-95;
-    background-color: #1e293b;
+    @apply inline-flex items-center gap-2 px-5 py-2.5 text-slate-200 font-semibold rounded-xl transition-all duration-200 active:scale-95;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
-  .btn-secondary:hover { background-color: #334155; }
+  .btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
+  }
 
   .btn-ghost {
     @apply inline-flex items-center gap-2 px-4 py-2 text-slate-400 rounded-xl transition-all duration-200;
@@ -44,44 +96,49 @@
     @apply inline-flex items-center gap-2 px-5 py-2.5 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-xl transition-all duration-200 active:scale-95;
   }
 
-  /* Cards */
+  /* ── Cards ──────────────────────────────────────────────────────────── */
   .card {
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(255,255,255,0.08);
     @apply rounded-2xl overflow-hidden transition-all duration-300;
-    background-color: #1e293b;
   }
 
   .card-hover {
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(255,255,255,0.08);
     @apply rounded-2xl overflow-hidden transition-all duration-300;
-    background-color: #1e293b;
   }
   .card-hover:hover {
-    border-color: rgba(58,91,255,0.4);
+    border-color: rgba(99, 102, 241, 0.3);
     transform: translateY(-4px);
-    box-shadow: 0 20px 40px rgba(58,91,255,0.1);
+    box-shadow: 0 20px 40px rgba(99, 102, 241, 0.1);
   }
 
-  /* Inputs */
+  /* ── Inputs ─────────────────────────────────────────────────────────── */
   .input {
     @apply w-full rounded-xl px-4 py-3 text-slate-100 placeholder-slate-500 outline-none transition-all duration-200;
-    background-color: #0f172a;
+    background: rgba(15, 23, 42, 0.6);
     border: 1px solid rgba(255,255,255,0.1);
+    backdrop-filter: blur(8px);
   }
   .input:focus {
-    border-color: #3a5bff;
-    box-shadow: 0 0 0 3px rgba(58,91,255,0.2);
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2), 0 0 20px rgba(99, 102, 241, 0.05);
   }
 
   .label { @apply block text-sm font-medium text-slate-300 mb-1.5; }
 
-  /* Badges */
+  /* ── Badges ─────────────────────────────────────────────────────────── */
   .badge { @apply inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-semibold; }
 
   .badge-blue {
     @apply inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-semibold;
-    background-color: rgba(58,91,255,0.15);
-    color: #93adff;
+    background-color: rgba(99, 102, 241, 0.15);
+    color: #a5b4fc;
   }
   .badge-green {
     @apply inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-semibold;
@@ -104,19 +161,19 @@
     color: #94a3b8;
   }
 
-  /* Layout */
+  /* ── Layout ─────────────────────────────────────────────────────────── */
   .section { @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8; }
 
-  /* Skeleton */
+  /* ── Skeleton ───────────────────────────────────────────────────────── */
   .skeleton {
     @apply rounded-lg;
-    background: linear-gradient(90deg, #1e293b 25%, #334155 50%, #1e293b 75%);
+    background: linear-gradient(90deg, rgba(30,41,59,0.6) 25%, rgba(51,65,85,0.6) 50%, rgba(30,41,59,0.6) 75%);
     background-size: 200% 100%;
     animation: shimmer 1.5s infinite;
   }
 }
 
-/* Animations */
+/* ── Animations ───────────────────────────────────────────────────────── */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -129,19 +186,38 @@
   0%   { background-position: -200% 0; }
   100% { background-position:  200% 0; }
 }
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(99, 102, 241, 0.2); }
+  50%      { box-shadow: 0 0 40px rgba(99, 102, 241, 0.4); }
+}
 
 .animate-fade-up { animation: fadeUp 0.5s ease forwards; }
 .animate-fade-in { animation: fadeIn 0.4s ease forwards; }
+.animate-float   { animation: float 6s ease-in-out infinite; }
+.animate-glow    { animation: glow-pulse 3s ease-in-out infinite; }
 
-/* Scrollbar */
+/* ── Scrollbar ────────────────────────────────────────────────────────── */
 ::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #0f172a; }
-::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+::-webkit-scrollbar-track { background: #060b18; }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #334155, #1e293b);
+  border-radius: 3px;
+}
 ::-webkit-scrollbar-thumb:hover { background: #475569; }
 
-/* Hero gradient */
+/* ── Selection ────────────────────────────────────────────────────────── */
+::selection {
+  background: rgba(99, 102, 241, 0.3);
+  color: #fff;
+}
+
+/* ── Hero gradient (legacy support) ──────────────────────────────────── */
 .bg-hero-pattern {
   background:
-    radial-gradient(ellipse at 20% 50%, rgba(58,91,255,0.15) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 20%, rgba(249,115,22,0.1)  0%, transparent 50%);
+    radial-gradient(ellipse at 20% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(139, 92, 246, 0.1)  0%, transparent 50%);
 }
