@@ -43,6 +43,14 @@ export const AuthProvider = ({ children }) => {
     return data;
   }, []);
 
+  const googleLogin = useCallback(async (credential, role, mode) => {
+    const { data } = await authAPI.googleLogin(credential, role, mode);
+    localStorage.setItem('skillsync_token', data.token);
+    setToken(data.token);
+    setUser(data.user);
+    return data;
+  }, []);
+
   const register = useCallback(async (formData) => {
     const { data } = await authAPI.register(formData);
     localStorage.setItem('skillsync_token', data.token);
@@ -70,7 +78,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, token, loading, isAuthenticated, isSeller, isAdmin, login, register, logout, updateUser }}
+      value={{ user, token, loading, isAuthenticated, isSeller, isAdmin, login, googleLogin, register, logout, updateUser }}
     >
       {children}
     </AuthContext.Provider>

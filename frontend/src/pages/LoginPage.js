@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { GoogleLogin } from '@react-oauth/google';
 import toast from 'react-hot-toast';
 import { FiMail, FiLock, FiEye, FiEyeOff } from 'react-icons/fi';
 
@@ -9,7 +10,7 @@ const LoginPage = () => {
   const [form, setForm] = useState({ email: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { login } = useAuth();
+  const { login, googleLogin } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || '/';
@@ -31,6 +32,16 @@ const LoginPage = () => {
       toast.error(err.response?.data?.message || 'Login failed. Please try again.');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleGoogleSuccess = async (credentialResponse) => {
+    try {
+      await googleLogin(credentialResponse.credential, null, 'login');
+      toast.success('Welcome back! 👋');
+      navigate(from, { replace: true });
+    } catch (err) {
+      toast.error(err.response?.data?.message || 'Google login failed. Please try again.');
     }
   };
 
@@ -85,6 +96,26 @@ const LoginPage = () => {
               ) : 'Sign In'}
             </button>
           </form>
+
+          {/* Divider */}
+          <div className="flex items-center gap-3 my-6">
+            <div className="flex-1 h-px bg-white/10" />
+            <span className="text-xs text-slate-500 uppercase tracking-wider font-medium">or</span>
+            <div className="flex-1 h-px bg-white/10" />
+          </div>
+
+          {/* Google Sign-In */}
+          <div className="flex justify-center" id="google-login-btn">
+            <GoogleLogin
+              onSuccess={handleGoogleSuccess}
+              onError={() => toast.error('Google sign-in was cancelled or failed.')}
+              theme="filled_black"
+              shape="pill"
+              size="large"
+              text="continue_with"
+              width="100%"
+            />
+          </div>
 
           <p className="text-center text-sm text-slate-400 mt-6">
             Don't have an account?{' '}

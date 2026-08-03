@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { GoogleLogin } from '@react-oauth/google';
 import toast from 'react-hot-toast';
 import { FiUser, FiMail, FiLock, FiEye, FiEyeOff, FiBriefcase, FiShoppingBag } from 'react-icons/fi';
 
@@ -9,7 +10,7 @@ const RegisterPage = () => {
   const [form, setForm] = useState({ name: '', email: '', password: '', role: 'buyer' });
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { register } = useAuth();
+  const { register, googleLogin } = useAuth();
   const navigate = useNavigate();
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
@@ -36,6 +37,17 @@ const RegisterPage = () => {
     }
   };
 
+  // Google sign-up: sends the credential + the already-selected role
+  const handleGoogleSuccess = async (credentialResponse) => {
+    try {
+      await googleLogin(credentialResponse.credential, form.role, 'register');
+      toast.success('Account created! Welcome to SkillSync 🎉');
+      navigate('/');
+    } catch (err) {
+      toast.error(err.response?.data?.message || 'Google sign-up failed. Please try again.');
+    }
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center py-12 px-4">
       <div className="w-full max-w-md animate-fade-up">
@@ -48,6 +60,49 @@ const RegisterPage = () => {
             <p className="text-slate-400 text-sm mt-1">Create your free student account</p>
           </div>
 
+          {/* ── Step 1: Role selector (always shown first) ── */}
+          <div className="mb-6">
+            <label className="label">I want to</label>
+            <div className="grid grid-cols-2 gap-3">
+              {[
+                { value: 'buyer', label: 'Hire Talent', sub: 'Find & buy services', icon: FiShoppingBag },
+                { value: 'seller', label: 'Offer Services', sub: 'Sell my skills', icon: FiBriefcase },
+              ].map(({ value, label, sub, icon: Icon }) => (
+                <button key={value} type="button" onClick={() => setForm({ ...form, role: value })}
+                  className={`p-4 rounded-xl border-2 text-left transition-all ${
+                    form.role === value
+                      ? 'border-brand-500 bg-brand-500/10'
+                      : 'border-white/10 hover:border-white/20'
+                  }`}>
+                  <Icon size={18} className={form.role === value ? 'text-brand-400 mb-2' : 'text-slate-400 mb-2'} />
+                  <p className={`text-sm font-semibold ${form.role === value ? 'text-white' : 'text-slate-300'}`}>{label}</p>
+                  <p className="text-xs text-slate-500 mt-0.5">{sub}</p>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* ── Google Sign-Up (uses the role selected above) ── */}
+          <div className="flex justify-center mb-5" id="google-register-btn">
+            <GoogleLogin
+              onSuccess={handleGoogleSuccess}
+              onError={() => toast.error('Google sign-up was cancelled or failed.')}
+              theme="filled_black"
+              shape="pill"
+              size="large"
+              text="continue_with"
+              width="100%"
+            />
+          </div>
+
+          {/* Divider */}
+          <div className="flex items-center gap-3 mb-5">
+            <div className="flex-1 h-px bg-white/10" />
+            <span className="text-xs text-slate-500 uppercase tracking-wider font-medium">or register with email</span>
+            <div className="flex-1 h-px bg-white/10" />
+          </div>
+
+          {/* ── Email registration form ── */}
           <form onSubmit={handleSubmit} className="space-y-5">
             {/* Name */}
             <div>
@@ -80,28 +135,6 @@ const RegisterPage = () => {
                   className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white transition-colors">
                   {showPassword ? <FiEyeOff size={17} /> : <FiEye size={17} />}
                 </button>
-              </div>
-            </div>
-
-            {/* Role selector */}
-            <div>
-              <label className="label">I want to</label>
-              <div className="grid grid-cols-2 gap-3">
-                {[
-                  { value: 'buyer', label: 'Hire Talent', sub: 'Find & buy services', icon: FiShoppingBag },
-                  { value: 'seller', label: 'Offer Services', sub: 'Sell my skills', icon: FiBriefcase },
-                ].map(({ value, label, sub, icon: Icon }) => (
-                  <button key={value} type="button" onClick={() => setForm({ ...form, role: value })}
-                    className={`p-4 rounded-xl border-2 text-left transition-all ${
-                      form.role === value
-                        ? 'border-brand-500 bg-brand-500/10'
-                        : 'border-white/10 hover:border-white/20'
-                    }`}>
-                    <Icon size={18} className={form.role === value ? 'text-brand-400 mb-2' : 'text-slate-400 mb-2'} />
-                    <p className={`text-sm font-semibold ${form.role === value ? 'text-white' : 'text-slate-300'}`}>{label}</p>
-                    <p className="text-xs text-slate-500 mt-0.5">{sub}</p>
-                  </button>
-                ))}
               </div>
             </div>
 

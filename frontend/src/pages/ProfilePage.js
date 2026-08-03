@@ -91,7 +91,7 @@ const ProfilePage = () => {
 
   if (!profile) return null;
 
-  const avatarUrl = avatarPreview || profile.profileImage;
+  const avatarUrl = avatarPreview || profile.profileImage || profile.avatar;
 
   return (
     <div className="min-h-screen py-10">
