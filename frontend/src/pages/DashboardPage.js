@@ -43,10 +43,10 @@ const ReviewModal = ({ order, onClose, onSubmitted }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm" onClick={onClose}>
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-surface-900/60 backdrop-blur-sm" onClick={onClose}>
       <div className="card p-6 w-full max-w-md animate-fade-up" onClick={(e) => e.stopPropagation()}>
-        <h3 className="text-lg font-bold text-white mb-1">Leave a Review</h3>
-        <p className="text-slate-400 text-sm mb-5">for <span className="text-white">{order.service?.title}</span></p>
+        <h3 className="text-lg font-display font-bold text-surface-900 mb-1">Leave a Review</h3>
+        <p className="text-surface-700 text-sm mb-5">for <span className="text-surface-900 font-medium">{order.service?.title}</span></p>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="label">Your Rating</label>
@@ -56,7 +56,7 @@ const ReviewModal = ({ order, onClose, onSubmitted }) => {
             <label className="label">Your Review</label>
             <textarea value={comment} onChange={(e) => setComment(e.target.value)} rows={4}
               placeholder="Share your experience working with this seller..." className="input resize-none" />
-            <p className="text-xs text-slate-500 mt-1">{comment.length}/500 (min 10)</p>
+            <p className="text-xs text-surface-700 mt-1">{comment.length}/500 (min 10)</p>
           </div>
           <div className="flex gap-3">
             <button type="submit" disabled={loading} className="btn-primary flex-1 justify-center">
@@ -97,7 +97,7 @@ const OrderCard = ({ order, viewAs, onStatusUpdate, onReview }) => {
     <div className="card p-5">
       <div className="flex items-start gap-4">
         {/* Service image */}
-        <div className="w-16 h-16 rounded-xl overflow-hidden shrink-0">
+        <div className="w-16 h-16 rounded-lg overflow-hidden shrink-0 border border-surface-900/10">
           <img src={service?.serviceImage || PLACEHOLDER} alt={service?.title}
             className="w-full h-full object-cover"
             onError={(e) => { e.target.src = PLACEHOLDER; }} />
@@ -106,10 +106,10 @@ const OrderCard = ({ order, viewAs, onStatusUpdate, onReview }) => {
         <div className="flex-1 min-w-0">
           <div className="flex items-start justify-between gap-2 flex-wrap">
             <div>
-              <Link to={`/services/${service?._id}`} className="text-white font-semibold text-sm hover:text-brand-400 transition-colors line-clamp-1">
+              <Link to={`/services/${service?._id}`} className="text-surface-900 font-semibold text-sm hover:text-brand-500 transition-colors line-clamp-1">
                 {service?.title}
               </Link>
-              <p className="text-slate-500 text-xs mt-0.5">
+              <p className="text-surface-700 text-xs mt-0.5">
                 {viewAs === 'buyer' ? `Seller: ${seller?.name}` : `Buyer: ${buyer?.name}`}
               </p>
             </div>
@@ -119,9 +119,9 @@ const OrderCard = ({ order, viewAs, onStatusUpdate, onReview }) => {
           </div>
 
           <div className="flex items-center gap-4 mt-2 flex-wrap">
-            <span className="text-white font-bold">₹{price}</span>
-            <span className="text-slate-500 text-xs">Ordered {new Date(createdAt).toLocaleDateString()}</span>
-            {deadline && <span className="text-slate-500 text-xs">Due {new Date(deadline).toLocaleDateString()}</span>}
+            <span className="text-surface-900 font-bold">₹{price}</span>
+            <span className="text-surface-700 text-xs">Ordered {new Date(createdAt).toLocaleDateString()}</span>
+            {deadline && <span className="text-surface-700 text-xs">Due {new Date(deadline).toLocaleDateString()}</span>}
           </div>
 
           {/* Actions */}
@@ -157,15 +157,15 @@ const OrderCard = ({ order, viewAs, onStatusUpdate, onReview }) => {
             {/* Buyer actions */}
             {viewAs === 'buyer' && status === 'completed' && !isReviewed && (
               <button onClick={() => onReview(order)}
-                className="flex items-center gap-1.5 text-xs text-amber-400 hover:text-amber-300 border border-amber-400/30 px-3 py-1.5 rounded-lg transition-colors">
+                className="flex items-center gap-1.5 text-xs text-amber-600 hover:text-amber-700 border border-amber-500/30 px-3 py-1.5 rounded-lg transition-colors">
                 <FiStar size={12} /> Leave Review
               </button>
             )}
 
-            {/* Cancel (both parties on pending) */}
+            {/* Cancel */}
             {status === 'pending' && (
               <button onClick={() => updateStatus('cancelled')} disabled={updating}
-                className="text-xs text-red-400 hover:text-red-300 border border-red-500/20 px-3 py-1.5 rounded-lg transition-colors">
+                className="text-xs text-red-600 hover:text-red-700 border border-red-500/20 px-3 py-1.5 rounded-lg transition-colors">
                 Cancel
               </button>
             )}
@@ -242,21 +242,21 @@ const DashboardPage = () => {
       <div className="section">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-white">Dashboard</h1>
-          <p className="text-slate-400 mt-1">Welcome back, {user?.name?.split(' ')[0]} 👋</p>
+          <h1 className="text-3xl font-display font-bold text-surface-900">Dashboard</h1>
+          <p className="text-surface-700 mt-1">Welcome back, {user?.name?.split(' ')[0]} 👋</p>
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-1 p-1 bg-surface-800 rounded-2xl mb-8 overflow-x-auto">
+        <div className="flex gap-1 p-1 bg-surface-200 rounded-lg mb-8 overflow-x-auto border border-surface-900/8">
           {tabs.map(({ id, label, icon: Icon, count }) => (
             <button key={id} onClick={() => setTab(id)}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all whitespace-nowrap ${
-                tab === id ? 'bg-brand-500 text-white shadow-lg' : 'text-slate-400 hover:text-white'
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-md text-sm font-medium transition-all whitespace-nowrap ${
+                tab === id ? 'bg-brand-500 text-white shadow-sm' : 'text-surface-700 hover:text-surface-900'
               }`}>
               <Icon size={15} /> {label}
               {count > 0 && (
                 <span className={`ml-1 px-1.5 py-0.5 rounded-full text-xs font-bold ${
-                  tab === id ? 'bg-white/20 text-white' : 'bg-brand-500/20 text-brand-400'
+                  tab === id ? 'bg-white/20 text-white' : 'bg-brand-500/15 text-brand-500'
                 }`}>{count}</span>
               )}
             </button>
@@ -272,17 +272,17 @@ const DashboardPage = () => {
               <div className="space-y-6">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   {[
-                    { label: 'Orders Placed', value: buyerOrders.length, sub: `${completedBuyer} completed`, color: 'text-brand-400' },
+                    { label: 'Orders Placed', value: buyerOrders.length, sub: `${completedBuyer} completed`, color: 'text-brand-500' },
                     ...(isSeller ? [
-                      { label: 'Orders Received', value: sellerOrders.length, sub: `${pendingSeller} pending`, color: 'text-orange-400' },
-                      { label: 'Total Earnings', value: `₹${earnings.toLocaleString()}`, sub: `${completedSeller} jobs done`, color: 'text-emerald-400' },
-                      { label: 'Active Services', value: myServices.filter(s => s.isActive).length, sub: 'published', color: 'text-purple-400' },
+                      { label: 'Orders Received', value: sellerOrders.length, sub: `${pendingSeller} pending`, color: 'text-status-amber' },
+                      { label: 'Total Earnings', value: `₹${earnings.toLocaleString()}`, sub: `${completedSeller} jobs done`, color: 'text-status-green' },
+                      { label: 'Active Services', value: myServices.filter(s => s.isActive).length, sub: 'published', color: 'text-forest-500' },
                     ] : []),
                   ].map(({ label, value, sub, color }) => (
                     <div key={label} className="card p-5">
-                      <p className="text-slate-400 text-sm mb-1">{label}</p>
-                      <p className={`text-2xl font-bold ${color} mb-0.5`}>{value}</p>
-                      <p className="text-xs text-slate-500">{sub}</p>
+                      <p className="text-surface-700 text-sm mb-1">{label}</p>
+                      <p className={`text-2xl font-display font-bold ${color} mb-0.5`}>{value}</p>
+                      <p className="text-xs text-surface-700">{sub}</p>
                     </div>
                   ))}
                 </div>
@@ -290,14 +290,14 @@ const DashboardPage = () => {
                 {/* Recent orders */}
                 {buyerOrders.length > 0 && (
                   <div>
-                    <h3 className="text-white font-semibold mb-4">Recent Orders</h3>
+                    <h3 className="text-surface-900 font-display font-semibold mb-4">Recent Orders</h3>
                     <div className="space-y-3">
                       {buyerOrders.slice(0, 3).map((o) => (
                         <OrderCard key={o._id} order={o} viewAs="buyer" onStatusUpdate={loadData} onReview={setReviewTarget} />
                       ))}
                     </div>
                     {buyerOrders.length > 3 && (
-                      <button onClick={() => setTab('orders')} className="btn-ghost text-sm mt-3">
+                      <button onClick={() => setTab('orders')} className="btn-ghost text-sm mt-3 text-brand-500">
                         View all {buyerOrders.length} orders →
                       </button>
                     )}
@@ -311,9 +311,9 @@ const DashboardPage = () => {
               <div>
                 {buyerOrders.length === 0 ? (
                   <div className="card p-12 text-center">
-                    <FiShoppingBag size={32} className="mx-auto mb-3 text-slate-600" />
-                    <h3 className="text-white font-semibold mb-1">No orders yet</h3>
-                    <p className="text-slate-400 text-sm mb-5">Browse services and hire a talented student</p>
+                    <FiShoppingBag size={32} className="mx-auto mb-3 text-surface-700/30" />
+                    <h3 className="text-surface-900 font-display font-semibold mb-1">No orders yet</h3>
+                    <p className="text-surface-700 text-sm mb-5">Browse services and hire a talented student</p>
                     <Link to="/services" className="btn-primary">Browse Services</Link>
                   </div>
                 ) : (
@@ -331,9 +331,9 @@ const DashboardPage = () => {
               <div>
                 {sellerOrders.length === 0 ? (
                   <div className="card p-12 text-center">
-                    <FiPackage size={32} className="mx-auto mb-3 text-slate-600" />
-                    <h3 className="text-white font-semibold mb-1">No orders received yet</h3>
-                    <p className="text-slate-400 text-sm">Your orders will appear here when buyers hire you</p>
+                    <FiPackage size={32} className="mx-auto mb-3 text-surface-700/30" />
+                    <h3 className="text-surface-900 font-display font-semibold mb-1">No orders received yet</h3>
+                    <p className="text-surface-700 text-sm">Your orders will appear here when buyers hire you</p>
                   </div>
                 ) : (
                   <div className="space-y-3">
@@ -349,33 +349,33 @@ const DashboardPage = () => {
             {tab === 'services' && isSeller && (
               <div>
                 <div className="flex items-center justify-between mb-5">
-                  <h3 className="text-white font-semibold">Your Services ({myServices.length})</h3>
+                  <h3 className="text-surface-900 font-display font-semibold">Your Services ({myServices.length})</h3>
                   <Link to="/services/create" className="btn-primary text-sm">+ New Service</Link>
                 </div>
                 {myServices.length === 0 ? (
                   <div className="card p-12 text-center">
-                    <FiStar size={32} className="mx-auto mb-3 text-slate-600" />
-                    <h3 className="text-white font-semibold mb-1">No services yet</h3>
-                    <p className="text-slate-400 text-sm mb-5">Create your first service and start earning</p>
+                    <FiStar size={32} className="mx-auto mb-3 text-surface-700/30" />
+                    <h3 className="text-surface-900 font-display font-semibold mb-1">No services yet</h3>
+                    <p className="text-surface-700 text-sm mb-5">Create your first service and start earning</p>
                     <Link to="/services/create" className="btn-primary">Create Service</Link>
                   </div>
                 ) : (
                   <div className="space-y-3">
                     {myServices.map((s) => (
                       <div key={s._id} className="card p-4 flex items-center gap-4">
-                        <div className="w-16 h-16 rounded-xl overflow-hidden shrink-0">
+                        <div className="w-16 h-16 rounded-lg overflow-hidden shrink-0 border border-surface-900/10">
                           <img src={s.serviceImage || 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=200&q=80'}
                             alt={s.title} className="w-full h-full object-cover"
                             onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=200&q=80'; }} />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <Link to={`/services/${s._id}`} className="text-white font-medium text-sm hover:text-brand-400 transition-colors line-clamp-1">
+                          <Link to={`/services/${s._id}`} className="text-surface-900 font-medium text-sm hover:text-brand-500 transition-colors line-clamp-1">
                             {s.title}
                           </Link>
                           <div className="flex items-center gap-3 mt-1 flex-wrap">
-                            <span className="badge-gray text-xs">{s.category}</span>
-                            <span className="text-white text-xs font-medium">₹{s.price}</span>
-                            <span className="text-slate-500 text-xs">{s.totalOrders} orders</span>
+                            <span className="tag-pill text-xs">{s.category}</span>
+                            <span className="text-surface-900 text-xs font-medium">₹{s.price}</span>
+                            <span className="text-surface-700 text-xs">{s.totalOrders} orders</span>
                             {!s.isActive && <span className="badge-red text-xs">Inactive</span>}
                           </div>
                         </div>
@@ -383,7 +383,7 @@ const DashboardPage = () => {
                           <Link to={`/services/edit/${s._id}`} className="btn-ghost px-3 py-2 text-xs">
                             <FiEdit size={13} />
                           </Link>
-                          <button onClick={() => handleDeleteService(s._id)} className="btn-ghost px-3 py-2 text-xs text-red-400 hover:text-red-300">
+                          <button onClick={() => handleDeleteService(s._id)} className="btn-ghost px-3 py-2 text-xs text-red-600 hover:text-red-700">
                             <FiTrash2 size={13} />
                           </button>
                         </div>

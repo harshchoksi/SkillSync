@@ -13,7 +13,7 @@ const CATEGORIES = [
 ];
 
 const CreateServicePage = () => {
-  const { id } = useParams(); // present when editing
+  const { id } = useParams();
   const isEditing = Boolean(id);
   const navigate = useNavigate();
 
@@ -26,7 +26,6 @@ const CreateServicePage = () => {
   const [fetchingService, setFetchingService] = useState(isEditing);
   const [errors, setErrors] = useState({});
 
-  // If editing, pre-fill form
   useEffect(() => {
     if (!isEditing) return;
     const load = async () => {
@@ -111,8 +110,8 @@ const CreateServicePage = () => {
     <div className="min-h-screen py-10">
       <div className="section max-w-3xl">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-white">{isEditing ? 'Edit Service' : 'Create New Service'}</h1>
-          <p className="text-slate-400 mt-1">
+          <h1 className="text-3xl font-display font-bold text-surface-900">{isEditing ? 'Edit Service' : 'Create New Service'}</h1>
+          <p className="text-surface-700 mt-1">
             {isEditing ? 'Update your service details' : 'Share your skills with the student community'}
           </p>
         </div>
@@ -120,22 +119,22 @@ const CreateServicePage = () => {
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Image upload */}
           <div className="card p-6">
-            <h2 className="text-white font-semibold mb-4">Service Image</h2>
-            <label className={`relative flex flex-col items-center justify-center border-2 border-dashed rounded-2xl cursor-pointer transition-colors overflow-hidden
-              ${imagePreview ? 'border-brand-500/40' : 'border-white/15 hover:border-brand-500/40'}`}>
+            <h2 className="text-surface-900 font-display font-semibold mb-4">Service Image</h2>
+            <label className={`relative flex flex-col items-center justify-center border-2 border-dashed rounded-lg cursor-pointer transition-colors overflow-hidden
+              ${imagePreview ? 'border-brand-500/40' : 'border-surface-900/15 hover:border-brand-500/40'}`}>
               {imagePreview ? (
                 <>
                   <img src={imagePreview} alt="Preview" className="w-full h-56 object-cover" />
-                  <div className="absolute inset-0 bg-black/50 opacity-0 hover:opacity-100 flex items-center justify-center transition-opacity">
+                  <div className="absolute inset-0 bg-surface-900/50 opacity-0 hover:opacity-100 flex items-center justify-center transition-opacity">
                     <span className="text-white font-medium flex items-center gap-2"><FiUpload /> Change Image</span>
                   </div>
                 </>
               ) : (
-                <div className="py-14 flex flex-col items-center gap-3 text-slate-400">
-                  <FiUpload size={28} className="text-brand-400" />
+                <div className="py-14 flex flex-col items-center gap-3 text-surface-700">
+                  <FiUpload size={28} className="text-brand-500" />
                   <div className="text-center">
-                    <p className="font-medium text-slate-300">Click to upload image</p>
-                    <p className="text-sm text-slate-500 mt-1">PNG, JPG, WEBP up to 5MB</p>
+                    <p className="font-medium text-surface-900">Click to upload image</p>
+                    <p className="text-sm text-surface-700 mt-1">PNG, JPG, WEBP up to 5MB</p>
                   </div>
                 </div>
               )}
@@ -143,7 +142,7 @@ const CreateServicePage = () => {
             </label>
             {imagePreview && (
               <button type="button" onClick={() => { setImageFile(null); setImagePreview(''); }}
-                className="mt-2 flex items-center gap-1.5 text-sm text-red-400 hover:text-red-300">
+                className="mt-2 flex items-center gap-1.5 text-sm text-red-600 hover:text-red-700">
                 <FiX size={13} /> Remove image
               </button>
             )}
@@ -151,14 +150,14 @@ const CreateServicePage = () => {
 
           {/* Basic details */}
           <div className="card p-6 space-y-5">
-            <h2 className="text-white font-semibold">Service Details</h2>
+            <h2 className="text-surface-900 font-display font-semibold">Service Details</h2>
 
             <div>
               <label className="label">Service Title *</label>
               <input name="title" value={form.title} onChange={handleChange} placeholder="e.g. I will build a responsive React website"
                 className={`input ${errors.title ? 'border-red-500/50' : ''}`} />
-              {errors.title && <p className="text-red-400 text-xs mt-1">{errors.title}</p>}
-              <p className="text-slate-500 text-xs mt-1">{form.title.length}/100</p>
+              {errors.title && <p className="text-red-600 text-xs mt-1">{errors.title}</p>}
+              <p className="text-surface-700 text-xs mt-1">{form.title.length}/100</p>
             </div>
 
             <div>
@@ -168,7 +167,7 @@ const CreateServicePage = () => {
                 <option value="">Select a category</option>
                 {CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
               </select>
-              {errors.category && <p className="text-red-400 text-xs mt-1">{errors.category}</p>}
+              {errors.category && <p className="text-red-600 text-xs mt-1">{errors.category}</p>}
             </div>
 
             <div>
@@ -176,8 +175,8 @@ const CreateServicePage = () => {
               <textarea name="description" value={form.description} onChange={handleChange} rows={6}
                 placeholder="Describe your service in detail. What will you deliver? What does the buyer get?"
                 className={`input resize-none ${errors.description ? 'border-red-500/50' : ''}`} />
-              {errors.description && <p className="text-red-400 text-xs mt-1">{errors.description}</p>}
-              <p className="text-slate-500 text-xs mt-1">{form.description.length}/2000</p>
+              {errors.description && <p className="text-red-600 text-xs mt-1">{errors.description}</p>}
+              <p className="text-surface-700 text-xs mt-1">{form.description.length}/2000</p>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
@@ -186,14 +185,14 @@ const CreateServicePage = () => {
                 <input type="number" name="price" value={form.price} onChange={handleChange}
                   placeholder="500" min="1"
                   className={`input ${errors.price ? 'border-red-500/50' : ''}`} />
-                {errors.price && <p className="text-red-400 text-xs mt-1">{errors.price}</p>}
+                {errors.price && <p className="text-red-600 text-xs mt-1">{errors.price}</p>}
               </div>
               <div>
                 <label className="label">Delivery Time (days) *</label>
                 <input type="number" name="deliveryTime" value={form.deliveryTime} onChange={handleChange}
                   placeholder="3" min="1"
                   className={`input ${errors.deliveryTime ? 'border-red-500/50' : ''}`} />
-                {errors.deliveryTime && <p className="text-red-400 text-xs mt-1">{errors.deliveryTime}</p>}
+                {errors.deliveryTime && <p className="text-red-600 text-xs mt-1">{errors.deliveryTime}</p>}
               </div>
             </div>
 
@@ -202,7 +201,7 @@ const CreateServicePage = () => {
               <input name="tags" value={form.tags} onChange={handleChange}
                 placeholder="react, javascript, frontend, portfolio"
                 className="input" />
-              <p className="text-slate-500 text-xs mt-1">Help buyers find your service</p>
+              <p className="text-surface-700 text-xs mt-1">Help buyers find your service</p>
             </div>
           </div>
 

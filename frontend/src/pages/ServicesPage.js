@@ -40,7 +40,6 @@ const ServicesPage = () => {
     sort: '-createdAt',
   });
 
-  // Fetch categories once
   useEffect(() => {
     serviceAPI.getCategories().then(({ data }) => setCategories(['All', ...data.categories]));
   }, []);
@@ -93,8 +92,8 @@ const ServicesPage = () => {
       <div className="section">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-white mb-1">Browse Services</h1>
-          <p className="text-slate-400">
+          <h1 className="text-3xl font-display font-bold text-surface-900 mb-1">Browse Services</h1>
+          <p className="text-surface-700">
             {total > 0 ? `${total} services available` : 'Discover student talent'}
           </p>
         </div>
@@ -102,7 +101,7 @@ const ServicesPage = () => {
         {/* Search bar */}
         <form onSubmit={handleSearchSubmit} className="flex gap-3 mb-6">
           <div className="relative flex-1">
-            <FiSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+            <FiSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-surface-700" size={18} />
             <input
               type="text"
               placeholder="Search services..."
@@ -115,7 +114,7 @@ const ServicesPage = () => {
           <button type="button" onClick={() => setShowFilters(!showFilters)}
             className={`btn-secondary gap-2 ${showFilters ? 'border-brand-500/40' : ''}`}>
             <FiFilter size={16} /> Filters
-            {hasActiveFilters && <span className="w-2 h-2 bg-brand-400 rounded-full" />}
+            {hasActiveFilters && <span className="w-2 h-2 bg-brand-500 rounded-full" />}
           </button>
         </form>
 
@@ -123,7 +122,6 @@ const ServicesPage = () => {
         {showFilters && (
           <div className="card p-5 mb-6 animate-fade-in">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-              {/* Category */}
               <div>
                 <label className="label">Category</label>
                 <div className="relative">
@@ -132,11 +130,10 @@ const ServicesPage = () => {
                     className="input appearance-none pr-8">
                     {categories.map((c) => <option key={c} value={c === 'All' ? '' : c}>{c}</option>)}
                   </select>
-                  <FiChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" size={16} />
+                  <FiChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-surface-700 pointer-events-none" size={16} />
                 </div>
               </div>
 
-              {/* Price range */}
               <div>
                 <label className="label">Price Range</label>
                 <div className="relative">
@@ -145,11 +142,10 @@ const ServicesPage = () => {
                     className="input appearance-none pr-8">
                     {PRICE_RANGES.map((r, i) => <option key={i} value={i}>{r.label}</option>)}
                   </select>
-                  <FiChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" size={16} />
+                  <FiChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-surface-700 pointer-events-none" size={16} />
                 </div>
               </div>
 
-              {/* Sort */}
               <div>
                 <label className="label">Sort By</label>
                 <div className="relative">
@@ -158,14 +154,14 @@ const ServicesPage = () => {
                     className="input appearance-none pr-8">
                     {SORT_OPTIONS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
                   </select>
-                  <FiChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" size={16} />
+                  <FiChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-surface-700 pointer-events-none" size={16} />
                 </div>
               </div>
             </div>
 
             {hasActiveFilters && (
               <button onClick={clearFilters}
-                className="flex items-center gap-1.5 text-sm text-slate-400 hover:text-white mt-4 transition-colors">
+                className="flex items-center gap-1.5 text-sm text-surface-700 hover:text-brand-500 mt-4 transition-colors">
                 <FiX size={14} /> Clear all filters
               </button>
             )}
@@ -180,7 +176,7 @@ const ServicesPage = () => {
               className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${
                 (cat === 'All' && !filters.category) || filters.category === cat
                   ? 'bg-brand-500 text-white'
-                  : 'bg-surface-800 text-slate-400 hover:text-white border border-white/8'
+                  : 'bg-surface-200 text-surface-700 hover:text-surface-900 border border-surface-900/10'
               }`}>
               {cat}
             </button>
@@ -195,8 +191,8 @@ const ServicesPage = () => {
         ) : services.length === 0 ? (
           <div className="text-center py-20">
             <div className="text-5xl mb-4">🔍</div>
-            <h3 className="text-xl font-semibold text-white mb-2">No services found</h3>
-            <p className="text-slate-400 mb-6">Try adjusting your filters or search terms</p>
+            <h3 className="text-xl font-display font-semibold text-surface-900 mb-2">No services found</h3>
+            <p className="text-surface-700 mb-6">Try adjusting your filters or search terms</p>
             <button onClick={clearFilters} className="btn-primary">Clear Filters</button>
           </div>
         ) : (
@@ -212,8 +208,8 @@ const ServicesPage = () => {
                   className="btn-secondary text-sm disabled:opacity-40">Previous</button>
                 {Array.from({ length: Math.min(pages, 7) }, (_, i) => i + 1).map((p) => (
                   <button key={p} onClick={() => setPage(p)}
-                    className={`w-10 h-10 rounded-xl text-sm font-medium transition-colors ${
-                      p === page ? 'bg-brand-500 text-white' : 'bg-surface-800 text-slate-400 hover:text-white border border-white/8'
+                    className={`w-10 h-10 rounded-lg text-sm font-medium transition-colors ${
+                      p === page ? 'bg-brand-500 text-white' : 'bg-surface-200 text-surface-700 hover:text-surface-900 border border-surface-900/10'
                     }`}>{p}</button>
                 ))}
                 <button onClick={() => setPage(page + 1)} disabled={page === pages}

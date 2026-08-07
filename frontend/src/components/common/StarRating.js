@@ -9,10 +9,10 @@ export const StarDisplay = ({ rating, size = 14, showNumber = false }) => (
       <FiStar
         key={star}
         size={size}
-        className={star <= Math.round(rating) ? 'text-amber-400 fill-amber-400' : 'text-slate-600'}
+        className={star <= Math.round(rating) ? 'text-amber-500 fill-amber-500' : 'text-surface-300'}
       />
     ))}
-    {showNumber && <span className="text-amber-400 text-sm font-semibold ml-1">{rating?.toFixed(1)}</span>}
+    {showNumber && <span className="text-amber-600 text-sm font-semibold ml-1">{rating?.toFixed(1)}</span>}
   </div>
 );
 
@@ -36,13 +36,13 @@ const StarRating = ({ value, onChange }) => {
             className={
               star <= (hovered || value)
                 ? 'text-amber-400 fill-amber-400'
-                : 'text-slate-600 hover:text-amber-300'
+                : 'text-surface-300 hover:text-amber-400'
             }
           />
         </button>
       ))}
       {value > 0 && (
-        <span className="ml-2 text-sm text-slate-400">
+        <span className="ml-2 text-sm text-surface-700">
           {['', 'Poor', 'Fair', 'Good', 'Great', 'Excellent'][value]}
         </span>
       )}

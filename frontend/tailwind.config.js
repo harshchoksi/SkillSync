@@ -4,51 +4,59 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['"Inter"', '"DM Sans"', 'sans-serif'],
-        display: ['"Clash Display"', '"Cabinet Grotesk"', 'sans-serif'],
-        body: ['"Inter"', '"DM Sans"', 'sans-serif'],
-        mono: ['"JetBrains Mono"', 'monospace'],
+        sans: ['"Inter"', 'system-ui', 'sans-serif'],
+        display: ['"Space Grotesk"', '"Inter"', 'sans-serif'],
+        mono: ['"Space Mono"', 'monospace'],
       },
       colors: {
         brand: {
-          50: '#eef2ff',
-          100: '#e0e7ff',
-          200: '#c7d2fe',
-          300: '#a5b4fc',
-          400: '#818cf8',
-          500: '#6366f1',
-          600: '#4f46e5',
-          700: '#4338ca',
-          800: '#3730a3',
-          900: '#312e81',
-          950: '#1e1b4b',
+          50: '#fef2f0',
+          100: '#fde3de',
+          200: '#fbc4b9',
+          300: '#f69d8a',
+          400: '#d96b55',
+          500: '#C8553D',
+          600: '#b34832',
+          700: '#963c2a',
+          800: '#7a3223',
+          900: '#652b1f',
+          950: '#3a150e',
         },
         accent: {
-          400: '#c084fc',
-          500: '#a855f7',
-          600: '#9333ea',
+          400: '#4a8a6e',
+          500: '#2D4A3E',
+          600: '#243d33',
         },
         surface: {
-          50: '#f8fafc',
-          100: '#f1f5f9',
-          200: '#e2e8f0',
-          800: '#1e293b',
-          900: '#0f172a',
-          950: '#060b18',
+          50: '#F5F0E8',   /* warm parchment — main bg */
+          100: '#EDE6DA',  /* slightly darker parchment */
+          200: '#E8D5B7',  /* warm sand — cards, inputs */
+          300: '#DCC9A5',  /* deeper sand */
+          700: '#5C5347',  /* muted brown */
+          800: '#3D362F',  /* dark warm */
+          900: '#2B2118',  /* dark walnut — text */
+          950: '#1A140D',  /* deepest ink */
+        },
+        forest: {
+          500: '#2D4A3E',
+          600: '#243D33',
+          700: '#1B3028',
+        },
+        status: {
+          green: '#5A8A6E',
+          amber: '#D4A843',
+          red: '#C85555',
+          blue: '#5A7A9E',
         },
       },
       backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'hero-pattern':
-          'radial-gradient(ellipse at 20% 50%, rgba(99,102,241,0.15) 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, rgba(139,92,246,0.1) 0%, transparent 50%)',
+        'grain': "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E\")",
       },
       animation: {
         'fade-up': 'fadeUp 0.5s ease forwards',
         'fade-in': 'fadeIn 0.4s ease forwards',
         'slide-in': 'slideIn 0.3s ease forwards',
         shimmer: 'shimmer 1.5s infinite',
-        float: 'float 6s ease-in-out infinite',
-        'glow-pulse': 'glow-pulse 3s ease-in-out infinite',
       },
       keyframes: {
         fadeUp: {
@@ -67,17 +75,9 @@ module.exports = {
           '0%': { backgroundPosition: '-200% 0' },
           '100%': { backgroundPosition: '200% 0' },
         },
-        float: {
-          '0%, 100%': { transform: 'translateY(0)' },
-          '50%': { transform: 'translateY(-10px)' },
-        },
-        'glow-pulse': {
-          '0%, 100%': { boxShadow: '0 0 20px rgba(99, 102, 241, 0.2)' },
-          '50%': { boxShadow: '0 0 40px rgba(99, 102, 241, 0.4)' },
-        },
       },
       borderColor: {
-        DEFAULT: 'rgba(255, 255, 255, 0.08)',
+        DEFAULT: 'rgba(43, 33, 24, 0.12)',
       },
     },
   },

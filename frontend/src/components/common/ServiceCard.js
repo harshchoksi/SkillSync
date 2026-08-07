@@ -18,8 +18,7 @@ const ServiceCard = ({ service }) => {
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           onError={(e) => { e.target.src = PLACEHOLDER; }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-surface-900/60 to-transparent" />
-        <span className="absolute top-3 left-3 badge-blue">{category}</span>
+        <span className="absolute top-3 left-3 tag-pill text-xs">{category}</span>
       </div>
 
       {/* Content */}
@@ -28,40 +27,40 @@ const ServiceCard = ({ service }) => {
         <div className="flex items-center gap-2 mb-2.5">
           {seller?.profileImage ? (
             <img src={seller.profileImage} alt={seller.name}
-              className="w-6 h-6 rounded-full object-cover" />
+              className="w-6 h-6 rounded-full object-cover ring-2 ring-brand-500/30" />
           ) : (
-            <div className="w-6 h-6 rounded-full bg-brand-500/20 flex items-center justify-center">
-              <FiUser size={11} className="text-brand-400" />
+            <div className="w-6 h-6 rounded-full bg-brand-500/15 flex items-center justify-center">
+              <FiUser size={11} className="text-brand-500" />
             </div>
           )}
-          <span className="text-xs text-slate-400 font-medium">{seller?.name}</span>
+          <span className="text-xs text-surface-700 font-medium">{seller?.name}</span>
         </div>
 
         {/* Title */}
-        <h3 className="text-white font-semibold text-sm leading-snug mb-3 line-clamp-2 group-hover:text-brand-300 transition-colors">
+        <h3 className="text-surface-900 font-display font-semibold text-sm leading-snug mb-3 line-clamp-2 group-hover:text-brand-500 transition-colors">
           {title}
         </h3>
 
         {/* Rating */}
         <div className="flex items-center gap-1 mb-3">
-          <FiStar size={13} className="text-amber-400 fill-amber-400" />
-          <span className="text-amber-400 text-xs font-semibold">
+          <FiStar size={13} className="text-amber-500 fill-amber-500" />
+          <span className="text-amber-600 text-xs font-semibold">
             {averageRating > 0 ? averageRating.toFixed(1) : 'New'}
           </span>
           {totalReviews > 0 && (
-            <span className="text-slate-500 text-xs">({totalReviews})</span>
+            <span className="text-surface-700 text-xs">({totalReviews})</span>
           )}
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-between pt-3 border-t border-white/8">
-          <div className="flex items-center gap-1 text-slate-400 text-xs">
+        <div className="flex items-center justify-between pt-3 border-t border-surface-900/8">
+          <div className="flex items-center gap-1 text-surface-700 text-xs">
             <FiClock size={12} />
             <span>{deliveryTime}d delivery</span>
           </div>
           <div>
-            <span className="text-xs text-slate-500">Starting at </span>
-            <span className="text-white font-bold">₹{price}</span>
+            <span className="text-xs text-surface-700">Starting at </span>
+            <span className="text-surface-900 font-bold">₹{price}</span>
           </div>
         </div>
       </div>

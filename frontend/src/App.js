@@ -12,9 +12,6 @@ import { SocketProvider } from './context/SocketContext';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 
-// 3D Background
-import AnimatedBackground from './components/3d/AnimatedBackground';
-
 // Route guard
 import ProtectedRoute from './components/common/ProtectedRoute';
 
@@ -90,28 +87,25 @@ function App() {
     <Router>
       <AuthProvider>
         <SocketProvider>
-          {/* Animated gradient background */}
-          <AnimatedBackground />
-
-          {/* Global toast notifications */}
+          {/* Global toast notifications — campus theme */}
           <Toaster
             position="top-right"
             toastOptions={{
               duration: 4000,
               style: {
-                background: 'rgba(15, 23, 42, 0.85)',
-                backdropFilter: 'blur(20px)',
-                color: '#f1f5f9',
-                border: '1px solid rgba(255,255,255,0.08)',
-                borderRadius: '12px',
+                background: '#E8D5B7',
+                color: '#2B2118',
+                border: '1px solid rgba(43, 33, 24, 0.12)',
+                borderRadius: '8px',
                 fontSize: '14px',
+                fontFamily: '"Inter", sans-serif',
               },
-              success: { iconTheme: { primary: '#6366f1', secondary: '#fff' } },
-              error: { iconTheme: { primary: '#ef4444', secondary: '#fff' } },
+              success: { iconTheme: { primary: '#C8553D', secondary: '#fff' } },
+              error: { iconTheme: { primary: '#C85555', secondary: '#fff' } },
             }}
           />
 
-          <div className="flex flex-col min-h-screen relative">
+          <div className="flex flex-col min-h-screen relative paper-grain">
             <Navbar />
 
             <main className="flex-1">

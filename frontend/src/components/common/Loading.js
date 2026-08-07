@@ -12,7 +12,7 @@ export const FullPageLoader = () => (
   <div className="min-h-screen flex items-center justify-center">
     <div className="text-center">
       <Spinner size="lg" className="mx-auto mb-4" />
-      <p className="text-slate-400 text-sm">Loading...</p>
+      <p className="text-surface-700 text-sm">Loading...</p>
     </div>
   </div>
 );
@@ -28,7 +28,7 @@ export const ServiceCardSkeleton = () => (
       <div className="skeleton h-4 w-full rounded" />
       <div className="skeleton h-4 w-3/4 rounded" />
       <div className="skeleton h-3 w-16 rounded" />
-      <div className="border-t border-white/8 pt-3 flex justify-between">
+      <div className="border-t border-surface-900/8 pt-3 flex justify-between">
         <div className="skeleton h-3 w-20 rounded" />
         <div className="skeleton h-4 w-16 rounded" />
       </div>
