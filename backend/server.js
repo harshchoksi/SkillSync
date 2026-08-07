@@ -21,6 +21,7 @@ const server = http.createServer(app); // HTTP server for Socket.io
 const allowedOrigins = [
   process.env.FRONTEND_URL || 'http://localhost:3000',
   'http://localhost:3000',
+  'https://skillsync-niym.onrender.com',
 ];
 
 app.use(
@@ -47,10 +48,23 @@ app.get('/api/health', (req, res) => {
   res.json({ success: true, message: 'SkillSync API is running 🚀' });
 });
 
-// 404 handler for unknown routes
-app.use((req, res) => {
-  res.status(404).json({ success: false, message: `Route ${req.originalUrl} not found` });
-});
+// ─── SERVE FRONTEND (Production) ──────────────────────────────────────────────
+const path = require('path');
+
+if (process.env.NODE_ENV === 'production') {
+  // Serve static files from React build
+  app.use(express.static(path.join(__dirname, '..', 'frontend', 'build')));
+
+  // All non-API routes → React app (client-side routing)
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'frontend', 'build', 'index.html'));
+  });
+} else {
+  // Development: 404 handler for unknown API routes
+  app.use((req, res) => {
+    res.status(404).json({ success: false, message: `Route ${req.originalUrl} not found` });
+  });
+}
 
 // ─── GLOBAL ERROR HANDLER ─────────────────────────────────────────────────────
 app.use(errorHandler);
