@@ -21,6 +21,7 @@ const server = http.createServer(app); // HTTP server for Socket.io
 const allowedOrigins = [
   process.env.FRONTEND_URL || 'http://localhost:3000',
   'http://localhost:3000',
+  'https://skill-sync-xi-opal.vercel.app',
   'https://skillsync-niym.onrender.com',
 ];
 
@@ -50,17 +51,20 @@ app.get('/api/health', (req, res) => {
 
 // ─── SERVE FRONTEND (Production) ──────────────────────────────────────────────
 const path = require('path');
+const fs = require('fs');
 
-if (process.env.NODE_ENV === 'production') {
-  // Serve static files from React build
-  app.use(express.static(path.join(__dirname, '..', 'frontend', 'build')));
+const frontendBuildPath = path.join(__dirname, '..', 'frontend', 'build');
+
+if (process.env.NODE_ENV === 'production' && fs.existsSync(frontendBuildPath)) {
+  // Serve static files from React build (only if build exists)
+  app.use(express.static(frontendBuildPath));
 
   // All non-API routes → React app (client-side routing)
   app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'frontend', 'build', 'index.html'));
+    res.sendFile(path.join(frontendBuildPath, 'index.html'));
   });
 } else {
-  // Development: 404 handler for unknown API routes
+  // No frontend build present (frontend hosted separately on Vercel) or dev mode
   app.use((req, res) => {
     res.status(404).json({ success: false, message: `Route ${req.originalUrl} not found` });
   });
